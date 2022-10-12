@@ -7,25 +7,10 @@ RegisterServerEvent('qb-ifruit:client:Door', function()
     
 end)
 
-RegisterNetEvent('qb-ifruit:server:RemoveDoorItem', function()
-    local src = source
-	local Player = QBCore.Functions.GetPlayer(src)
-    local item = Config.PaletoPacificDoor
-    Player.Functions.RemoveItem(item, 1, false)
-    TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], 'remove')
-end)
+RegisterNetEvent('qb-ifruit:server:UseThermite', function()
+    local Player = QBCore.Functions.GetPlayer(source)
 
-QBCore.Functions.CreateCallback('qb-ifruit:server:GetItemsNeeded', function(source, cb, item)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    if Player ~= nil then 
-        local Themite = Player.Functions.GetItemByName(item)
-        if Themite ~= nil then
-            cb(true)
-        else
-            cb(false)
-        end
-    else
-        cb(false)
-    end
+    if not Player then return end
+
+    Player.Functions.RemoveItem('thermite', 1)
 end)
